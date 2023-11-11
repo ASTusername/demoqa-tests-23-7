@@ -23,6 +23,7 @@ public class RegistrationPage {
     private final SelenideElement stateInput = $("#react-select-3-input");
     private final SelenideElement cityInput = $("#react-select-4-input");
     private final SelenideElement submit = $("#submit");
+    private final SelenideElement openPageTitle = $(".practice-form-wrapper");
 
 
     CalendarComponent calendarComponent = new CalendarComponent();
@@ -30,7 +31,7 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form")); // куда проверку открытия страницы?
+        openPageTitle.shouldHave(text("Student Registration Form")); // куда проверку открытия страницы?
         return this;
     }
 

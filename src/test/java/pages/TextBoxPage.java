@@ -15,10 +15,11 @@ public class TextBoxPage {
     private final SelenideElement currentAddress = $("#currentAddress");
     private final SelenideElement permanentAddress = $("#permanentAddress");
     private final SelenideElement submit = $("#submit");
+    private final SelenideElement openPageTitle = $(".main-header");
 
     public TextBoxPage openPage() {
         open("/text-box");
-        $(".main-header").shouldHave(text("Text Box")); // куда проверку открытия страницы?
+        openPageTitle.shouldHave(text("Text Box")); // куда проверку открытия страницы?
         return this;
     }
 
