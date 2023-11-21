@@ -9,19 +9,27 @@ import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static utils.RandomUtils.*;
 
-public class RegistrationTests extends TestBase {
+public class RegistrationTestsWithRandomUtils extends TestBase {
 
     @Test
     void successfulRegistrationTest() {
+        Faker faker = new Faker(new Locale("en-GB"));
+
+        String firstName = getRandomString(10);
+        String lastName = getRandomString(10);
+        String userEmail = getRandomEmail();
+        String streetAddress = getRandomAddress();
+
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
-        $("#firstName").setValue("Alex");
-        $("#lastName").setValue("Egorov");
-        $("#userEmail").setValue("userEmail@mail.ru");
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
+        $("#userEmail").setValue(userEmail);
         $("#genterWrapper").$(byText("Other")).click();
         $("#userNumber").setValue("1234567890");
         $("#dateOfBirthInput").click();
@@ -31,7 +39,7 @@ public class RegistrationTests extends TestBase {
         $("#subjectsInput").setValue("Math").pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#uploadPicture").uploadFromClasspath("img/1.png");
-        $("#currentAddress").setValue("Some address St");
+        $("#currentAddress").setValue(streetAddress);
         $("#state").click();
         $("#stateCity-wrapper").$(byText("NCR")).click();
         $("#city").click();
@@ -40,7 +48,7 @@ public class RegistrationTests extends TestBase {
 
         $(".modal-dialog").should(appear);
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Alex"), text("Egorov"),
-                text("userEmail@mail.ru"), text("1234567890"));
+        $(".table-responsive").shouldHave(text(firstName), text(lastName),
+                text(userEmail), text("1234567890"), text(streetAddress));
     }
 }
