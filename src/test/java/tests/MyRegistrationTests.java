@@ -3,58 +3,58 @@ package tests;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.components.ResultTableComponent;
-
-import static tests.constants.DataTest.*;
+import tests.constants.DataTest;
 
 public class MyRegistrationTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     ResultTableComponent resultTableComponent = new ResultTableComponent();
+    DataTest dataTest = new DataTest();
 
     @Test
     void fillStudentRegistrationFormTest() {
         registrationPage.openPage()
                 .killBanners()
-                .setFirstName(FIRST_NAME)
-                .setLastName(LAST_NAME)
-                .setUserEmail(USER_EMAIL)
-                .setGenter(GENDER)
-                .setUserNumber(USER_NUMBER)
-                .setDateOfBirth(DAY_OF_BIRTH, MONTH_OF_BIRTH, YEAR_OF_BIRTH)
-                .setSubjects(SUBJECTS)
-                .setHobbies(HOBBIES)
-                .setUploadPicture(UPLOAD_PICTURE)
-                .setCurrentAddress(CURRENT_ADDRESS)
-                .setStateAndCity(STATE, CITY)
+                .setFirstName(dataTest.firstName)
+                .setLastName(dataTest.lastName)
+                .setUserEmail(dataTest.userEmail)
+                .setGenter(dataTest.gender)
+                .setUserNumber(dataTest.userNumber)
+                .setDateOfBirth(dataTest.dayOfBirth, dataTest.monthOfBirth, dataTest.yearOfBirth)
+                .setSubjects(dataTest.subjects)
+                .setHobbies(dataTest.hobbies)
+                .setUploadPicture(dataTest.uploadPicture)
+                .setCurrentAddress(dataTest.currentAddress)
+                .setStateAndCity(dataTest.state, dataTest.city)
                 .clickSubmit();
 
         registrationPage.checkResultTableAppearAndTitle()
-                .checkResult("Student Name", FIRST_NAME + " " + LAST_NAME)
-                .checkResult("Student Email", USER_EMAIL)
-                .checkResult("Gender", GENDER)
-                .checkResult("Mobile", USER_NUMBER)
-                .checkResult("Date of Birth", DAY_OF_BIRTH + " " + MONTH_OF_BIRTH + "," + YEAR_OF_BIRTH)
-                .checkResult("Subjects", SUBJECTS)
-                .checkResult("Hobbies", HOBBIES)
-                .checkResult("Picture", UPLOAD_PICTURE)
-                .checkResult("Gender", GENDER)
-                .checkResult("Address", CURRENT_ADDRESS)
-                .checkResult("State and City", STATE + " " + CITY);
+                .checkResult("Student Name", dataTest.firstName + " " + dataTest.lastName)
+                .checkResult("Student Email", dataTest.userEmail)
+                .checkResult("Gender", dataTest.gender)
+                .checkResult("Mobile", dataTest.userNumber)
+                .checkResult("Date of Birth", dataTest.dayOfBirth + " " + dataTest.monthOfBirth + "," + dataTest.yearOfBirth)
+                .checkResult("Subjects", dataTest.subjects)
+                .checkResult("Hobbies", dataTest.hobbies)
+                .checkResult("Picture", dataTest.uploadPicture)
+                .checkResult("Gender", dataTest.gender)
+                .checkResult("Address", dataTest.currentAddress)
+                .checkResult("State and City", dataTest.state + " " + dataTest.city);
     }
 
     @Test
     void fillRequiredStudentRegistrationFormTest() {
         registrationPage.openPage()
                 .killBanners()
-                .setFirstName(FIRST_NAME)
-                .setLastName(LAST_NAME)
-                .setGenter(GENDER)
-                .setUserNumber(USER_NUMBER)
+                .setFirstName(dataTest.firstName)
+                .setLastName(dataTest.lastName)
+                .setGenter(dataTest.gender)
+                .setUserNumber(dataTest.userNumber)
                 .clickSubmit();
 
         registrationPage.checkResultTableAppearAndTitle()
-                .checkResult("Student Name", FIRST_NAME + " " + LAST_NAME)
-                .checkResult("Gender", GENDER)
-                .checkResult("Mobile", USER_NUMBER)
+                .checkResult("Student Name", dataTest.firstName + " " + dataTest.lastName)
+                .checkResult("Gender", dataTest.gender)
+                .checkResult("Mobile", dataTest.userNumber)
                 .checkResult("Date of Birth", resultTableComponent.dateTodayFormatted());
     }
 
@@ -62,10 +62,10 @@ public class MyRegistrationTests extends TestBase {
     void fillNotValidStudentRegistrationFormTest() {
         registrationPage.openPage()
                 .killBanners()
-                .setFirstName(FIRST_NAME)
-                .setLastName(LAST_NAME)
-                .setGenter(GENDER)
-                .setUserNumber(USER_NUMBER_NOT_VALID)
+                .setFirstName(dataTest.firstName)
+                .setLastName(dataTest.lastName)
+                .setGenter(dataTest.gender)
+                .setUserNumber(dataTest.userNumberNotValid)
                 .clickSubmit();
 
         registrationPage.checkResultTableNotAppear()

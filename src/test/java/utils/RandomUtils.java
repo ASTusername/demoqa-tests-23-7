@@ -1,13 +1,13 @@
 package utils;
 
-
 import com.github.javafaker.Faker;
 
-import java.util.Random;
+import static utils.LeapYearUtils.getMaxDayOfFebruary;
 
 public class RandomUtils {
+    static Faker faker = new Faker();
+
     public static String getRandomCity(String state) {
-        Faker faker = new Faker();
         switch (state) {
             case "NCR":
                 return faker.options().option("Delhi", "Gurgaon", "Noida");
@@ -20,5 +20,23 @@ public class RandomUtils {
             default:
                 throw new IllegalArgumentException("Invalid state: " + state);
         }
+    }
+
+    public static String getRandomDayOfBirth(String month, String year) {
+        String result;
+        int res = 0;
+        int maxDay = 0;
+        if (month.equals("January") || month.equals("March") || month.equals("May") || month.equals("July")
+                || month.equals("August") || month.equals("October") || month.equals("December")) {
+            maxDay = 31;
+        }
+        if (month.equals("April") || month.equals("June") || month.equals("September") || month.equals("November")) {
+            maxDay = 30;
+        }
+        if (month.equals("February")) {
+            maxDay = getMaxDayOfFebruary(year);
+        }
+        res = faker.number().numberBetween(1, maxDay);
+        return res < 10 ? "0" + res : String.valueOf(res);
     }
 }
